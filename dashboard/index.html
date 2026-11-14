@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — pre-token protocols ranked by implied launch value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="brand">
+    <div class="pulse" aria-hidden="true"><span></span></div>
+    <div>
+      <h1>TOKEN RADAR</h1>
+      <p class="tagline">Which protocol's launch would be worth the most — and how to farm it.</p>
+    </div>
+  </div>
+  <div class="snapshot" id="snapshot-meta">Loading snapshot…</div>
+</header>
+
+<main>
+  <section class="stats" id="stats" aria-label="Board summary"></section>
+
+  <section class="method" aria-label="How the value is worked out">
+    <h2>How the number is worked out</h2>
+    <p class="formula" id="formula"></p>
+    <ul class="factors" id="factors"></ul>
+    <p class="plain">Every multiple comes from the snapshot itself: the median market-cap-per-dollar-of-TVL
+    of the tokenised protocols in the same category. No protocol is priced off its name, and no
+    number here comes from outside the snapshot. A protocol is listed as pre-token when its
+    DefiLlama record carries no token — that is what the record says, never proof it has none.</p>
+  </section>
+
+  <section class="detail" id="detail" hidden aria-label="Protocol detail"></section>
+
+  <section class="controls" aria-label="Filter and sort the board">
+    <label>Search <input id="q" type="search" placeholder="Protocol or slug…" autocomplete="off"></label>
+    <label>Category <select id="category"><option value="">All categories</option></select></label>
+    <label>Chain <select id="chain"><option value="">All chains</option></select></label>
+    <label class="check"><input id="watchlist" type="checkbox"> Watchlist only</label>
+    <label>Min TVL
+      <select id="mintvl">
+        <option value="0" selected>Any</option>
+        <option value="10000000">$10M+</option>
+        <option value="50000000">$50M+</option>
+        <option value="100000000">$100M+</option>
+        <option value="500000000">$500M+</option>
+      </select>
+    </label>
+    <label>Sort by
+      <select id="sort">
+        <option value="rank" selected>Implied value (rank)</option>
+        <option value="tvl">TVL</option>
+        <option value="growth">7-day growth</option>
+        <option value="age">Age (oldest first)</option>
+        <option value="name">Name A–Z</option>
+      </select>
+    </label>
+    <span class="count" id="count"></span>
+  </section>
+
+  <section class="board" aria-label="Ranked board">
+    <table>
+      <thead>
+        <tr>
+          <th class="num">#</th>
+          <th>Protocol</th>
+          <th>Category</th>
+          <th>Chains</th>
+          <th class="num">TVL</th>
+          <th class="num">7d</th>
+          <th class="num">Age</th>
+          <th class="num">Implied launch value</th>
+          <th>Farm</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="empty" id="empty" hidden>No protocol matches these filters. Loosen the search or the TVL floor.</p>
+  </section>
+
+  <section class="peers" aria-label="How the multiples are set">
+    <h2>Where the multiples come from</h2>
+    <p>Each category's multiple is the median market cap per dollar of TVL of its tokenised peers.
+    Categories with fewer than four priced peers use the global median instead.</p>
+    <table class="compact">
+      <thead><tr><th>Category</th><th class="num">Multiple</th><th class="num">Priced peers</th><th class="num">Median peer mcap</th></tr></thead>
+      <tbody id="multiples"></tbody>
+    </table>
+  </section>
+
+  <section class="live" aria-label="Protocols whose token already trades">
+    <h2>Already trading — the peer set</h2>
+    <p>These protocols already have a token that trades, so they are never ranked. They are the
+    comparables the multiples above are calibrated on — the largest 24 by market cap.</p>
+    <table class="compact">
+      <thead><tr><th>Protocol</th><th>Category</th><th class="num">TVL</th><th class="num">Market cap</th><th class="num">Mcap / TVL</th></tr></thead>
+      <tbody id="live"></tbody>
+    </table>
+  </section>
+</main>
+
+<footer>
+  <p>Source: DefiLlama protocols snapshot, fetched 2026-11-14. Implied values are this radar's own
+  model, not a prediction that a token will be issued or what it will be worth. Farm plans are
+  general guidance, not financial advice; gas and yields move, and every position carries risk.</p>
+  <p>Token Radar · every genuine pre-token protocol ranked · board, detail and filter views on one page.</p>
+</footer>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
